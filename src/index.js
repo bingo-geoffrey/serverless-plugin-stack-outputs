@@ -16,7 +16,7 @@ module.exports = Class.extend({
     _.forEach(this._serverless.pluginManager.plugins, function(plugin){
       if (plugin.constructor.name == 'AwsInfo') {
         // got the info plugin, hijack it
-        that._SDK = plugin.sdk
+        that._SDK = plugin.provider
       }
     })
 
@@ -52,13 +52,13 @@ module.exports = Class.extend({
 
   outputStackOutput: function() {
     // find the correct stage
-    var stage = this._serverless.service.defaults.stage;
+    var stage = this._serverless.service.provider.stage;
     if (this._serverless.variables.options.stage) {
       stage = this._serverless.variables.options.stage;
     }
 
     // find the correct stage
-    var region = this._serverless.service.defaults.region;
+    var region = this._serverless.service.provider.region;
     if (this._serverless.variables.options.region) {
       region = this._serverless.variables.options.region;
     }
